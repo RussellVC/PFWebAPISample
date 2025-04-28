@@ -1,6 +1,335 @@
 ﻿@page "/messages"
 <h3>Messages</h3>
 
-@code {
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-}
+<style>
+    body {
+        background-color: #e0f7fa; /* Changed background color */
+        margin-top: 20px;
+        font-family: 'Arial', sans-serif; /* Changed font family */
+    }
+
+    .card {
+        background: #ffffff; /* Card background */
+        transition: .5s;
+        border: 0;
+        margin-bottom: 30px;
+        border-radius: .55rem;
+        position: relative;
+        width: 100%;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-app .people-list {
+        width: 280px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 20px;
+        z-index: 7;
+        background-color: #ffffff; /* Background for people list */
+    }
+
+    .chat-app .chat {
+        margin-left: 280px;
+        border-left: 1px solid #e0f7fa; /* Changed border color */
+    }
+
+    .people-list {
+        transition: .5s;
+    }
+
+        .people-list .chat-list li {
+            padding: 10px 15px;
+            list-style: none;
+            border-radius: 3px;
+        }
+
+            .people-list .chat-list li:hover {
+                background: #b2ebf2; /* Changed hover color */
+                cursor: pointer;
+            }
+
+            .people-list .chat-list li.active {
+                background: #b2ebf2; /* Active chat color */
+            }
+
+            .people-list .chat-list li .name {
+                font-size: 16px; /* Increased font size */
+                color: #00796b; /* Changed text color */
+            }
+
+        .people-list .chat-list img {
+            width: 45px;
+            border-radius: 50%;
+        }
+
+        .people-list img {
+            float: left;
+            border-radius: 50%;
+        }
+
+        .people-list .about {
+            float: left;
+            padding-left: 8px;
+        }
+
+        .people-list .status {
+            color: #757575; /* Changed status color */
+            font-size: 14px; /* Increased font size */
+        }
+
+    .chat .chat-header {
+        padding: 15px 20px;
+        border-bottom: 2px solid #e0f7fa; /* Changed border color */
+        background-color: #ffffff; /* Header background */
+    }
+
+        .chat .chat-header img {
+            float: left;
+            border-radius: 40px;
+            width: 40px;
+        }
+
+        .chat .chat-header .chat-about {
+            float: left;
+            padding-left: 10px;
+        }
+
+    .chat .chat-history {
+        padding: 20px;
+        border-bottom: 2px solid #ffffff; /* Changed border color */
+        background-color: #f1f8e9; /* Changed chat history background */
+    }
+
+        .chat .chat-history ul {
+            padding: 0;
+        }
+
+            .chat .chat-history ul li {
+                list-style: none;
+                margin-bottom: 30px;
+            }
+
+                .chat .chat-history ul li:last-child {
+                    margin-bottom: 0px;
+                }
+
+        .chat .chat-history .message-data {
+            margin-bottom: 15px;
+        }
+
+            .chat .chat-history .message-data img {
+                border-radius: 40px;
+                width: 40px;
+            }
+
+        .chat .chat-history .message-data-time {
+            color: #424242; /* Changed time color */
+            padding-left: 6px;
+        }
+
+        .chat .chat-history .message {
+            color: #333; /* Changed message text color */
+            padding: 18px 20px;
+            line-height: 26px;
+            font-size: 16px;
+            border-radius: 7px;
+            display: inline-block;
+            position: relative;
+        }
+
+            .chat .chat-history .message:after {
+                bottom: 100%;
+                left: 7%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-bottom-color: #ffffff; /* Changed arrow color */
+                border-width: 10px;
+                margin-left: -10px;
+            }
+
+        .chat .chat-history .my-message {
+            background: #b2ebf2; /* Changed my message background */
+        }
+
+            .chat .chat-history .my-message:after {
+                bottom: 100%;
+                left: 30px;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-bottom-color: #b2ebf2; /* Changed my message arrow color */
+                border-width: 10px;
+                margin-left: -10px;
+            }
+
+        .chat .chat-history .other-message {
+            background: #e0f2f1; /* Changed other message background */
+            text-align: right;
+        }
+
+            .chat .chat-history .other-message:after {
+                border-bottom-color: #e0f2f1; /* Changed other message arrow color */
+                left: 93%;
+            }
+
+    .chat .chat-message {
+        padding: 20px;
+    }
+
+    .online,
+    .offline,
+    .me {
+        margin-right: 2px;
+        font-size: 8px;
+        vertical-align: middle;
+    }
+
+    .online {
+        color: #4caf50; /* Changed online color */
+    }
+
+    .offline {
+        color: #f44336; /* Changed offline color */
+    }
+
+    .me {
+        color: #2196f3; /* Changed me color */
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+  
+</style>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+                <div id="plist" class="people-list">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search...">
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                        <li class="clearfix">
+                            <img src="https://th.bing.com/th/id/OIP.zUwqO7zmhEOUhq--De0ZWQHaHW?rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Luen Panotes</div>
+                                <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                            </div>
+                        </li>
+                        <li class="clearfix active">
+                            <img src="https://th.bing.com/th/id/OIP.RT_CSllpDcDxRSBEgeQybwHaHa?rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Clement Decena</div>
+                                <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <img src="https://th.bing.com/th/id/OIP.wRQJ7JAxfJKupUMCG6NnOwHaHU?rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Angelo Mark James</div>
+                                <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <img src="https://th.bing.com/th/id/OIP.s4Z7ex0w45SItFHDSsHM_AHaHV?rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Russell Consigna</div>
+                                <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <img src="https://th.bing.com/th/id/OIP.0cUJw6UWfLNiS_OXQgq6cQHaHS?rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Rachel Anne Gulay</div>
+                                <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <img src="https://th.bing.com/th/id/OIP.MCw8bbOl0y40ZmRLfd2C3wHaHa?w=2048&h=2048&rs=1&pid=ImgDetMain" alt="avatar">
+                            <div class="about">
+                                <div class="name">Charlene Rivera</div>
+                                <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28 </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat">
+                    <div class="chat-header clearfix">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    <img src="https://th.bing.com/th/id/OIP.RT_CSllpDcDxRSBEgeQybwHaHa?rs=1&pid=ImgDetMain" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">Clement Decena</h6>
+                                    <small>Last seen: 2 hours ago</small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hidden-sm text-right">
+                                <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-history">
+                        <ul class="m-b-0">
+                            <li class="clearfix">
+                                <div class="message-data text-right">
+                                    <span class="message-data-time">10:10 AM, Today</span>
+                                    <img src="https://th.bing.com/th/id/OIP.s4Z7ex0w45SItFHDSsHM_AHaHV?rs=1&pid=ImgDetMain" alt="avatar">
+                                </div>
+                                <div class="message other-message float-right"> Hi Luen, how are you? How is the project coming along? </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="message-data">
+                                    <span class="message-data-time">10:12 AM, Today</span>
+                                </div>
+                                <div class="message my-message">Are we meeting today?</div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="message-data">
+                                    <span class="message-data-time">10:15 AM, Today</span>
+                                </div>
+                                <div class="message my-message">Project has been already finished and I have results to show you.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-send"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter text here...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
