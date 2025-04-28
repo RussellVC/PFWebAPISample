@@ -1,19 +1,20 @@
 ﻿@page "/messages"
-<h3>Messages</h3>
+<h3>Messages <button id="toggleDarkMode" class="btn btn-secondary">Toggle Dark Mode</button></h3>
+
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style>
     body {
-        background-color: azure; /* Set background image */
-        background-size: cover; /* Cover the entire area */
-        background-repeat: no-repeat; /* Prevent repeating */
+        background-color: azure; 
+        background-size: cover; 
+        background-repeat: no-repeat; 
         margin-top: 20px;
-        font-family: 'Arial', sans-serif; /* Changed font family */
+        font-family: 'Arial', sans-serif; 
     }
 
     .card {
-        background: #ffffff; /* Card background */
+        background: #ffffff; 
         transition: .5s;
         border: 0;
         margin-bottom: 30px;
@@ -30,12 +31,12 @@
         top: 0;
         padding: 20px;
         z-index: 7;
-        background-color: #ffffff; /* Background for people list */
+        background-color: #ffffff; 
     }
 
     .chat-app .chat {
         margin-left: 280px;
-        border-left: 1px solid #e0f7fa; /* Changed border color */
+        border-left: 1px solid #e0f7fa; 
     }
 
     .people-list {
@@ -49,17 +50,17 @@
         }
 
             .people-list .chat-list li:hover {
-                background: #b2ebf2; /* Changed hover color */
+                background: #b2ebf2; 
                 cursor: pointer;
             }
 
             .people-list .chat-list li.active {
-                background: #b2ebf2; /* Active chat color */
+                background: #b2ebf2; 
             }
 
             .people-list .chat-list li .name {
-                font-size: 16px; /* Increased font size */
-                color: #00796b; /* Changed text color */
+                font-size: 16px; 
+                color: #00796b; 
             }
 
         .people-list .chat-list img {
@@ -78,14 +79,14 @@
         }
 
         .people-list .status {
-            color: #757575; /* Changed status color */
-            font-size: 14px; /* Increased font size */
+            color: #757575; 
+            font-size: 14px;
         }
 
     .chat .chat-header {
         padding: 15px 20px;
-        border-bottom: 2px solid #e0f7fa; /* Changed border color */
-        background-color: #ffffff; /* Header background */
+        border-bottom: 2px solid #e0f7fa; 
+        background-color: #ffffff; 
     }
 
         .chat .chat-header img {
@@ -101,8 +102,8 @@
 
     .chat .chat-history {
         padding: 20px;
-        border-bottom: 2px solid #ffffff; /* Changed border color */
-        background-color: #f1f8e9; /* Changed chat history background */
+        border-bottom: 2px solid #ffffff; 
+        background-color: #f1f8e9; 
     }
 
         .chat .chat-history ul {
@@ -128,12 +129,12 @@
             }
 
         .chat .chat-history .message-data-time {
-            color: #424242; /* Changed time color */
+            color: #424242; 
             padding-left: 6px;
         }
 
         .chat .chat-history .message {
-            color: #333; /* Changed message text color */
+            color: #333; 
             padding: 18px 20px;
             line-height: 26px;
             font-size: 16px;
@@ -151,13 +152,13 @@
                 width: 0;
                 position: absolute;
                 pointer-events: none;
-                border-bottom-color: #ffffff; /* Changed arrow color */
+                border-bottom-color: #ffffff; 
                 border-width: 10px;
                 margin-left: -10px;
             }
 
         .chat .chat-history .my-message {
-            background: #b2ebf2; /* Changed my message background */
+            background: #b2ebf2; 
         }
 
             .chat .chat-history .my-message:after {
@@ -169,18 +170,18 @@
                 width: 0;
                 position: absolute;
                 pointer-events: none;
-                border-bottom-color: #b2ebf2; /* Changed my message arrow color */
+                border-bottom-color: #b2ebf2; 
                 border-width: 10px;
                 margin-left: -10px;
             }
 
         .chat .chat-history .other-message {
-            background: #e0f2f1; /* Changed other message background */
+            background: #e0f2f1; 
             text-align: right;
         }
 
             .chat .chat-history .other-message:after {
-                border-bottom-color: #e0f2f1; /* Changed other message arrow color */
+                border-bottom-color: #e0f2f1; 
                 left: 93%;
             }
 
@@ -197,15 +198,15 @@
     }
 
     .online {
-        color: #4caf50; /* Changed online color */
+        color: #4caf50; 
     }
 
     .offline {
-        color: #f44336; /* Changed offline color */
+        color: #f44336;
     }
 
     .me {
-        color: #2196f3; /* Changed me color */
+        color: #2196f3; 
     }
 
     .float-right {
@@ -220,10 +221,56 @@
         clear: both;
         height: 0;
     }
-  
+
+    .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+        .dark-mode .card {
+            background: #1e1e1e;
+        }
+
+        .dark-mode .people-list {
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .chat .chat-header {
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .chat .chat-history {
+            background-color: #2a2a2a;
+        }
+
+            .dark-mode .chat .chat-history .message {
+                background: #3a3a3a;
+                color: #ffffff;
+            }
+
+        .dark-mode .people-list .chat-list li .name {
+            color: #bb86fc;
+        }
+
+        .dark-mode .people-list .status {
+            color: #b0bec5;
+        }
+
+        .dark-mode .online {
+            color: #76ff03;
+        }
+
+        .dark-mode .offline {
+            color: #ff5252;
+        }
+
+        .dark-mode .me {
+            color: #03a9f4;
+        }
 </style>
 
 <div class="container">
+   
     <div class="row clearfix">
         <div class="col-lg-12">
             <div class="card chat-app">
@@ -335,3 +382,9 @@
         </div>
     </div>
 </div>
+<script>
+    const toggleButton = document.getElementById('toggleDarkMode');
+    toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
