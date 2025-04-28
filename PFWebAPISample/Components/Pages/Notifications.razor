@@ -1,6 +1,243 @@
 ﻿@page "/notifications"
-<h3>Notifications</h3>
 
-@code {
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>List Notification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+          rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ebf8ff; /* Light blue background */
+        }
 
-}
+        /* Notification styles */
+        .notification {
+            border-radius: 0.375rem; /* Rounded corners */
+            padding: 1rem; /* Padding for notifications */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem; /* Space between notifications */
+        }
+
+        .notification-green {
+            background-color: #c6f6d5; /* Light green background */
+            border: 1px solid #68d391; /* Green border */
+        }
+
+        .notification-yellow {
+            background-color: #fefcbf; /* Light yellow background */
+            border: 1px solid #ecc94b; /* Yellow border */
+        }
+
+        .notification-red {
+            background-color: #fed7d7; /* Light red background */
+            border: 1px solid #f56565; /* Red border */
+        }
+
+        .notification-gray {
+            background-color: #edf2f7; /* Light gray background */
+            border: 1px solid #cbd5e0; /* Gray border */
+        }
+
+        .notification-text {
+            color: #2d3748; /* Dark gray text */
+        }
+
+        .delete-button {
+            color: #e53e3e; /* Red color for delete button */
+        }
+
+            .delete-button:hover {
+                color: #c53030; /* Darker red on hover */
+            }
+    </style>
+</head>
+<body class="bg-[#F5F6F5] min-h-screen p-4 sm:p-6 md:p-8">
+    <div class="max-w-5xl mx-auto bg-[#F5F6F5] rounded-md">
+        <header class="flex justify-between items-center mb-4">
+            <h1 class="text-gray-900 font-semibold text-lg flex items-center gap-2">
+                <i class="fas fa-bell"></i> List Notification
+            </h1>
+        </header>
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-0">
+            <p class="text-sm text-gray-900 font-normal">188 Notification</p>
+            <form class="relative w-full sm:w-64">
+                <input type="search"
+                       placeholder="Search by Name Product"
+                       class="w-full text-xs text-gray-500 placeholder-gray-400 bg-[#F5F6F5] border border-transparent rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-gray-300"
+                       aria-label="Search by Name Product" />
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"
+                   aria-hidden="true"></i>
+            </form>
+        </div>
+
+        <nav class="flex items-center gap-6 border-b border-gray-300 mb-4 text-xs font-normal text-gray-900">
+            <button class="flex items-center gap-1 px-2 py-1 rounded-full bg-[#F9C6C5] text-[#B93B3A] font-semibold"
+                    aria-current="page">
+                <span class="text-[10px] font-semibold leading-none">20</span> All
+            </button>
+            <button class="hover:underline">10 Archive</button>
+            <button class="hover:underline">17 Favorite</button>
+        </nav>
+
+        <ul class="space-y-3">
+            <li class="notification notification-green" role="listitem">
+                <!-- Notification content -->
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-[#B9E6B9] flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        We're pleased to inform you that a new customer has registered! Please
+                        follow up promptly by contacting.
+                        <span class="font-normal text-gray-500">Just Now</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+            <li class="notification notification-yellow">
+                <!-- Notification content -->
+      
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-[#F9E79F] flex-shrink-0"
+                          aria-hidden="true"></span>
+                      <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        Hello Sales Marketing Team, We have a special offer for our customers! Enjoy a
+                        20% discount on selected products.
+                        <span class="font-normal text-gray-500">30 min ago</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+            <li class="notification notification-red" role="listitem">
+
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-[#FADBD8] flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        Reminder: Please achieve this month's sales target. Currently, we've...
+                        <span class="font-normal text-gray-500">2 days ago</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+            <li class="notification notification-gray" role="listitem">
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-[#D5DBDB] flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        We've received a product information request from a potential customer.
+                        <span class="font-normal text-gray-500">5 days ago</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+            <li class="notification notification-red" role="listitem">
+
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-[#F9E79F] flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        A meeting or presentation has been scheduled with a customer/prospect.
+                        <span class="font-normal text-gray-500">01 Feb, 2024</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+            <li class="notification notification-yellow" role="listitem">
+         
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-transparent flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        It's time for a follow-up with a customer after their recent purchase/meeting.
+                        <span class="font-normal text-gray-500">27 Jan, 2024</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+            <li class="notification notification-red" role="listitem">
+               
+                <div class="flex items-start gap-3 max-w-[calc(100%-40px)]">
+                    <span class="w-2 h-2 rounded-full mt-2.5 bg-transparent flex-shrink-0"
+                          aria-hidden="true"></span>
+                    <button aria-label="Star notification"
+                            class="text-gray-400 hover:text-gray-600 mt-2.5 flex-shrink-0">
+                        <i class="far fa-star"></i>
+                    </button>
+                    
+                    <p class="text-xs text-gray-900 leading-tight max-w-[calc(100%-120px)]">
+                        We've received positive feedback/testimonial from a satisfied customer.
+                        <span class="font-normal text-gray-500">26 Jan, 2024</span>
+                    </p>
+                </div>
+                <button aria-label="Delete notification"
+                        class="text-[#B93B3A] hover:text-[#8a2a29] flex-shrink-0">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+
+        </ul>
+    </div>
+</body>
+</html>
